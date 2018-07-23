@@ -1,0 +1,14 @@
+
+
+
+
+首页最热：http://service.aibizhi.adesk.com/v3/homepage?limit=30&adult=false&did=&first=1&order=hot
+最新分类：http://service.aibizhi.adesk.com/v1/vertical/category?adult=false&first=1 
+
+美女最热：http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000000/vertical?limit=30&adult=false&first=1&order=hot
+动漫最热：http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000003/vertical?limit=30&adult=false&first=1&order=hot 
+风景最热：http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=30&adult=false&first=1&order=hot  
+视觉最热：http://service.aibizhi.adesk.com/v1/vertical/category/4fb479f75ba1c65561000027/vertical?limit=30&adult=false&first=1&order=hot
+物语最热：http://service.aibizhi.adesk.com/v1/vertical/category/4fb47a465ba1c65561000028/vertical?limit=30&adult=false&first=1&order=hot 
+城市最热：http://service.aibizhi.adesk.com/v1/vertical/category/4fb47a305ba1c60ca5000223/vertical?limit=30&adult=false&first=1&order=hot 
+动物最热：http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000001/vertical?limit=30&adult=false&first=1&order=hot 
