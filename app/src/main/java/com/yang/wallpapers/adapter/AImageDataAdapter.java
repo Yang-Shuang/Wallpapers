@@ -14,6 +14,7 @@ import com.yang.wallpapers.entity.BingDataEntity;
 import com.yang.wallpapers.utils.AppConfigConst;
 import com.yang.wallpapers.utils.ImageUtil;
 import com.yang.wallpapers.utils.ScreenUtil;
+import com.yang.wallpapers.utils.WallPaperUtils;
 
 import java.util.List;
 
@@ -43,13 +44,19 @@ public class AImageDataAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         SimpleDraweeView view = holder.getView(R.id.item_image_sdv);
         ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(imageWidth, imageHeight);
         layoutParams.leftMargin = space;
         layoutParams.bottomMargin = space;
         view.setLayoutParams(layoutParams);
         ImageUtil.setImage(view, mData.get(position).getThumb());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                WallPaperUtils.setWallPaper(ImageUtil.getBitmapFromCache(mData.get(position).getThumb(),context),context);
+            }
+        });
     }
 
     @Override

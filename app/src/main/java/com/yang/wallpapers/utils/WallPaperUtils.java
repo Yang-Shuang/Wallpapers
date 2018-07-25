@@ -20,6 +20,7 @@ public class WallPaperUtils {
         WallpaperManager mWallManager = WallpaperManager.getInstance(context);
         try {
             mWallManager.setBitmap(bitmap);
+            ToastUtils.showShort("Success",context);
         } catch (IOException e) {
             e.printStackTrace();
         }
