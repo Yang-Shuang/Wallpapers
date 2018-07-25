@@ -3,8 +3,15 @@ package com.yang.wallpapers;
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.LogInterceptor;
+import com.orhanobut.hawk.Parser;
+import com.yang.wallpapers.utils.JsonParser;
+import com.yang.wallpapers.utils.LogUtil;
 import com.yang.wallpapers.utils.NetWorkUtils;
 import com.yang.wallpapers.utils.ScreenUtil;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by
@@ -17,6 +24,12 @@ public class WallApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Hawk.init(this).setLogInterceptor(new LogInterceptor() {
+            @Override
+            public void onLog(String message) {
+                LogUtil.i("Hawk", message);
+            }
+        }).build();
         Fresco.initialize(getApplicationContext());
 
         NetWorkUtils.init();

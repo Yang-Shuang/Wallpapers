@@ -23,8 +23,10 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.orhanobut:hawk:2.0.1'
     implementation 'com.facebook.fresco:fresco:0.12.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }

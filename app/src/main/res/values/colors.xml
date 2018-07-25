@@ -3,4 +3,10 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#EEEEEE</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#EEEEEE</color>
+    <color name="gray_two">#CCCCCC</color>
+    <color name="black">#000000</color>
+    <color name="line">#aaaaaa</color>
+    <color name="red">#FF2200</color>
 </resources>

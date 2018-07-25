@@ -19,5 +19,10 @@ public class AppConfigConst {
 
     public static final String category = "/v1/vertical/category";
     public static final String homePage = "/v3/homepage";
+    public static final String vertical = "/vertical";
 
+    public static final class Key {
+        public static final String CATEGORY_LIST = "CATEGORY_LIST";
+        public static final String CATEGORY_IMAGE_COUNT = "CATEGORY_IMAGE_COUNT";
+    }
 }

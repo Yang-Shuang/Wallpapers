@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/category_item_cb"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_category_item"
+    android:button="@null"
+    android:paddingBottom="9dp"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp"
+    android:paddingTop="9dp"
+    android:textColor="@drawable/bg_category_text_color">
+
+</CheckBox>

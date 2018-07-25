@@ -1,5 +1,7 @@
 package com.yang.wallpapers.adapter;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +26,11 @@ public class AImageDataAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private List<ADeskImageResponse.ResBean.VerticalBean> mData;
     private int imageWidth, imageHeight, space;
+    private Context context;
 
-    public AImageDataAdapter(List<ADeskImageResponse.ResBean.VerticalBean> mData) {
+    public AImageDataAdapter(List<ADeskImageResponse.ResBean.VerticalBean> mData,Context context) {
         this.mData = mData;
+        this.context = context;
         space = ScreenUtil.dp2px(2);
         imageWidth = (ScreenUtil.screen_width - space * 4) / 3;
         imageHeight = (int) (imageWidth / 1080f * 1920);
@@ -46,7 +50,6 @@ public class AImageDataAdapter extends RecyclerView.Adapter<ViewHolder> {
         layoutParams.bottomMargin = space;
         view.setLayoutParams(layoutParams);
         ImageUtil.setImage(view, mData.get(position).getThumb());
-
     }
 
     @Override

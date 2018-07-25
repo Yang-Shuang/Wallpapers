@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yang.wallpapers.CategoryActivity">
+
+    <ImageView
+        android:id="@+id/category_back_iv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/gray"
+        android:onClick="onClick"
+        android:scaleType="center"
+        android:src="@mipmap/ic_dialog_back"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/category_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@color/gray"
+        android:gravity="center_vertical"
+        android:text="分类偏好选择"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toRightOf="@+id/category_back_iv"
+        app:layout_constraintRight_toLeftOf="@+id/category_save_tv" />
+
+    <TextView
+        android:onClick="onClick"
+        android:id="@+id/category_save_tv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/category_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_title_tv">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/category_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>
