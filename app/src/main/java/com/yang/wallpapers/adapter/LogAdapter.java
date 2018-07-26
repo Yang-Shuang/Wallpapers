@@ -50,8 +50,6 @@ public class LogAdapter extends RecyclerView.Adapter<ViewHolder> {
             } else if (log.length == 2) {
                 time.setText(log[0]);
                 msg.setText(log[1]);
-                System.out.println("time---" + log[0]);
-                System.out.println("msg---" + log[1]);
             } else {
                 msg.setText("_:_");
             }

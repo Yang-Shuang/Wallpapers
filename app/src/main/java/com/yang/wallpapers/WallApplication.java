@@ -10,6 +10,7 @@ import com.yang.wallpapers.utils.JsonParser;
 import com.yang.wallpapers.utils.LogUtil;
 import com.yang.wallpapers.utils.NetWorkUtils;
 import com.yang.wallpapers.utils.ScreenUtil;
+import com.yang.wallpapers.utils.ServiceUtil;
 
 import java.lang.reflect.Type;
 
@@ -30,5 +31,7 @@ public class WallApplication extends Application {
 
         NetWorkUtils.init();
         ScreenUtil.init(this);
+
+        ServiceUtil.startService(this);
     }
 }
