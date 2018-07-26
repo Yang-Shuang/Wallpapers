@@ -12,6 +12,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yang.wallpapers.adapter.AImageDataAdapter;
+import com.yang.wallpapers.adapter.RecyclerOnItemClickListener;
+import com.yang.wallpapers.adapter.ViewHolder;
 import com.yang.wallpapers.entity.ADeskCategoryResponse;
 import com.yang.wallpapers.entity.ADeskImageResponse;
 import com.yang.wallpapers.entity.ADeskRequestEntity;
@@ -48,7 +50,6 @@ public class ADeskImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_desk_image);
         initView();
-
     }
 
     @Override
@@ -71,18 +72,36 @@ public class ADeskImageActivity extends AppCompatActivity {
         });
         mList = new ArrayList<>();
         adapter = new AImageDataAdapter(mList, this);
+        adapter.setOnItemClickListener(new RecyclerOnItemClickListener<ADeskImageResponse.ResBean.VerticalBean>() {
+            @Override
+            public void onItemClick(ViewHolder holder, ADeskImageResponse.ResBean.VerticalBean data) {
+                Intent intent = new Intent(ADeskImageActivity.this, ImageActivity.class);
+                if (data != null) {
+                    intent.putExtra(AppConfigConst.Intent.IMAGE_DATA, data);
+                }
+                startActivity(intent);
+            }
+        });
+
         recyclerView.setAdapter(adapter);
+
     }
 
     private void refreshData() {
+        LogUtil.i("首页---获取个人最热图片预览");
         ArrayList<ADeskCategoryResponse.ResBean.CategoryBean> categoryBeans = Hawk.get(AppConfigConst.Key.CATEGORY_LIST);
         if (categoryBeans == null || categoryBeans.size() == 0) {
             getAllHot();
         } else {
             List<ADeskCategoryResponse.ResBean.CategoryBean> categoryIds = new ArrayList<>();
+            String cName = "";
             for (ADeskCategoryResponse.ResBean.CategoryBean bean : categoryBeans) {
-                if (bean.isCheck()) categoryIds.add(bean);
+                if (bean.isCheck()) {
+                    categoryIds.add(bean);
+                    cName = cName + bean.getName() + "  ";
+                }
             }
+            LogUtil.e("首页---当前一设置偏好分类为：" + cName);
             if (categoryIds.size() == 0) {
                 getAllHot();
             } else {
@@ -92,6 +111,7 @@ public class ADeskImageActivity extends AppCompatActivity {
     }
 
     private void getAllHot() {
+        LogUtil.i("首页---获取所有最热图片预览");
         ADeskRequestEntity request = new ADeskRequestEntity(AppConfigConst.homePage);
         request.setLimit("50");
         NetWorkUtils.GET(request, new NetWorkUtils.RequestListener() {
@@ -120,6 +140,7 @@ public class ADeskImageActivity extends AppCompatActivity {
     }
 
     private void getCategoryHot(List<ADeskCategoryResponse.ResBean.CategoryBean> categoryIds) {
+        LogUtil.i("首页---获取已设置分类最热图片预览");
         checkCategoryCount = 0;
         tempList = new TreeSet<>(new ImageInfoComparator());
         for (final ADeskCategoryResponse.ResBean.CategoryBean bean : categoryIds) {
@@ -167,10 +188,6 @@ public class ADeskImageActivity extends AppCompatActivity {
         if (checkCategoryCount == 0) {
             mList.clear();
             mList.addAll(tempList);
-
-            for (ADeskImageResponse.ResBean.VerticalBean b : mList) {
-                LogUtil.i("rank------" + b.getRank());
-            }
             adapter.notifyDataSetChanged();
             refreshLayout.finishRefresh();
         }

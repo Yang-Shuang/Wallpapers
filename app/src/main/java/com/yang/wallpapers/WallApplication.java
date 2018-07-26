@@ -23,13 +23,9 @@ public class WallApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Hawk.init(this).setLogInterceptor(new LogInterceptor() {
-            @Override
-            public void onLog(String message) {
-                LogUtil.i("Hawk", message);
-            }
-        }).build();
+        LogUtil.init(this);
+        LogUtil.i("WallApplication onCreate");
+        Hawk.init(this).build();
         Fresco.initialize(getApplicationContext());
 
         NetWorkUtils.init();

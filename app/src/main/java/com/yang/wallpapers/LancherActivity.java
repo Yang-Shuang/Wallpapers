@@ -10,6 +10,7 @@ import com.yang.wallpapers.entity.ADeskImageResponse;
 import com.yang.wallpapers.entity.ADeskRequestEntity;
 import com.yang.wallpapers.utils.AppConfigConst;
 import com.yang.wallpapers.utils.JsonParser;
+import com.yang.wallpapers.utils.LogUtil;
 import com.yang.wallpapers.utils.NetWorkUtils;
 import com.yang.wallpapers.utils.StringUtil;
 import com.yang.wallpapers.utils.ToastUtils;
@@ -48,6 +49,7 @@ public class LancherActivity extends AppCompatActivity {
     }
 
     private void getCategory() {
+        LogUtil.i("App启动---检查获取分类信息api");
         NetWorkUtils.GET(new ADeskRequestEntity(AppConfigConst.category), new NetWorkUtils.RequestListener() {
             @Override
             public void onSuccess(String str) {
@@ -82,6 +84,7 @@ public class LancherActivity extends AppCompatActivity {
     }
 
     private void getFistCategoryImage(ADeskCategoryResponse.ResBean.CategoryBean bean) {
+        LogUtil.i("App启动---获取分类(" + bean.getName() +")图片信息");
         NetWorkUtils.GET(new ADeskRequestEntity(AppConfigConst.category + "/" + bean.getId() + AppConfigConst.vertical), new NetWorkUtils.RequestListener() {
             @Override
             public void onSuccess(String str) {

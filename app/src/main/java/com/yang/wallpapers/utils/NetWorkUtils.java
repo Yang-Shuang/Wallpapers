@@ -51,13 +51,13 @@ public class NetWorkUtils {
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                    LogUtil.e("onResponse",response.body());
+                    LogUtil.e("onResponse", "返回的网络数据：" + response.body());
                     listeners.onSuccess(response.body());
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    LogUtil.e("onFailure",t.getMessage());
+                    LogUtil.e("onFailure", "返回的网络数据：" + t.getMessage());
                     listeners.onSuccess(t.getMessage());
                 }
             });

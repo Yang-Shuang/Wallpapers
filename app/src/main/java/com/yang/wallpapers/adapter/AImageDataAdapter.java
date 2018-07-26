@@ -28,6 +28,7 @@ public class AImageDataAdapter extends RecyclerView.Adapter<ViewHolder> {
     private List<ADeskImageResponse.ResBean.VerticalBean> mData;
     private int imageWidth, imageHeight, space;
     private Context context;
+    private RecyclerOnItemClickListener listener;
 
     public AImageDataAdapter(List<ADeskImageResponse.ResBean.VerticalBean> mData,Context context) {
         this.mData = mData;
@@ -44,23 +45,29 @@ public class AImageDataAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         SimpleDraweeView view = holder.getView(R.id.item_image_sdv);
         ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(imageWidth, imageHeight);
         layoutParams.leftMargin = space;
         layoutParams.bottomMargin = space;
         view.setLayoutParams(layoutParams);
         ImageUtil.setImage(view, mData.get(position).getThumb());
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                WallPaperUtils.setWallPaper(ImageUtil.getBitmapFromCache(mData.get(position).getThumb(),context),context);
-            }
-        });
+        if (this.listener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(holder,mData.get(position));
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void setOnItemClickListener(RecyclerOnItemClickListener listener) {
+        this.listener = listener;
     }
 }

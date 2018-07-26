@@ -55,6 +55,31 @@
         app:layout_constraintTop_toBottomOf="@+id/setting_category_tv" />
 
     <TextView
+        android:id="@+id/setting_bitmap_tv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_item_click"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/setting_count_tv" />
+
+    <TextView
+        android:id="@+id/setting_log_tv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_item_click"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="运行日志"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/setting_bitmap_tv" />
+
+    <TextView
         android:id="@+id/setting_clear_tv"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -65,7 +90,7 @@
         android:paddingRight="15dp"
         android:text="清除缓存"
         android:textColor="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/setting_count_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/setting_log_tv" />
 
     <TextView
         android:id="@+id/setting_cache_tv"

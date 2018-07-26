@@ -2,6 +2,7 @@ package com.yang.wallpapers.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class ADeskImageResponse extends BaseResponseDataEntity{
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class ResBean {
+    public static class ResBean implements Serializable{
 
         private AlertBean alert;
         private List<VerticalBean> vertical;
@@ -80,7 +81,7 @@ public class ADeskImageResponse extends BaseResponseDataEntity{
         }
 
         @JsonIgnoreProperties(ignoreUnknown = true)
-        public static class VerticalBean {
+        public static class VerticalBean implements Serializable{
 
             private String preview;
             private String thumb;
