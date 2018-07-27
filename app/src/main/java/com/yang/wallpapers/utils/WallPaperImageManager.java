@@ -41,6 +41,7 @@ public class WallPaperImageManager {
         }
         bitmap = ImageUtil.getBitmapFromCache(bean.getImg(), context);
         if (bitmap == null) {
+            LogUtil.e("prepareImages---下载新图片" + bean.getImg());
             ImageUtil.getImageFromInternet(context, bean.getImg(), new ImageUtil.ImageLoadListener() {
                 @Override
                 public void onResult(Bitmap bitmap) {

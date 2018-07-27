@@ -109,6 +109,7 @@ public class WallPaperUtils {
     }
 
     public static void setWallPaperBitmap(Bitmap bitmap, Context context) {
+        LogUtil.e("正在设置壁纸......");
         WallpaperManager mWallManager = WallpaperManager.getInstance(context);
         try {
             if (Build.VERSION.SDK_INT >= 24) {

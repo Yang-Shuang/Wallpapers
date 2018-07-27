@@ -43,11 +43,11 @@ public class MyWallPaperService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.e("onStartCommand------" + FakeService.instance);
         String action = intent.getAction();
         if (StringUtil.isEmpty(action)) {
 //            executeTask();
         } else if (action.equals(ACTION_GET_DATA_FOR_SET)) {
+            LogUtil.e("onStartCommand------ACTION_GET_DATA_FOR_SET");
             getImageData();
         }
 
