@@ -62,6 +62,10 @@ public class ImageUtil {
         imageView.setController(controller);
     }
 
+    public static void getImageFromInternet(Context context, String url) {
+        getImageFromInternet(context, url, null);
+    }
+
     public static void getImageFromInternet(Context context, String url, final ImageLoadListener loadListener) {
         if (url == null || url.equals("")) return;
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).setProgressiveRenderingEnabled(true).build();
@@ -70,7 +74,9 @@ public class ImageUtil {
         dataSource.subscribe(new BaseBitmapDataSubscriber() {
             @Override
             public void onNewResultImpl(@Nullable Bitmap bitmap) {
-                loadListener.onResult(bitmap);
+                if (loadListener != null) {
+                    loadListener.onResult(bitmap);
+                }
             }
 
             @Override
@@ -82,7 +88,7 @@ public class ImageUtil {
     /**
      * 从缓存中获取图片
      */
-    public static Bitmap getBitmapFromCache(String url,Context context) {
+    public static Bitmap getBitmapFromCache(String url, Context context) {
         //获取缓存key
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
         CacheKey cacheKey = DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(imageRequest, context);
@@ -130,5 +136,6 @@ public class ImageUtil {
 
     public interface ImageLoadListener {
         void onResult(Bitmap bitmap);
+        void onFailed(String msg);
     }
 }

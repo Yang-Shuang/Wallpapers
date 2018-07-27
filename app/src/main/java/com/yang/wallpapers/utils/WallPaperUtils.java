@@ -5,6 +5,7 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.os.Build;
 
 import com.orhanobut.hawk.Hawk;
 
@@ -20,39 +21,33 @@ import java.lang.reflect.Method;
 public class WallPaperUtils {
 
     public static void setWallPaper(Bitmap bitmap, Context context) {
-        WallpaperManager mWallManager = WallpaperManager.getInstance(context);
-        try {
-            int screenWidth = ScreenUtil.screen_width;
-            int screenHeight = ScreenUtil.screen_height;
-            float scale = screenHeight * 1f / screenWidth;
-            int bitmapWidth = bitmap.getWidth();
-            int bitmapHeight = bitmap.getHeight();
-            if (bitmapHeight * 1f / bitmapWidth == scale) {
-                mWallManager.setBitmap(bitmap);
-            } else {
-                String imagehandle = Hawk.get(AppConfigConst.Key.IMAGE_HANDLE, AppConfigConst.Value.IMAGE_AUTO);
-                Bitmap bitmap1 = null;
-                if (imagehandle.equals(AppConfigConst.Value.IMAGE_AUTO)) {
-                    float imageScale = bitmapHeight * 1f / bitmapWidth;
-                    if (Math.abs(scale - imageScale) <= 0.24) {
-                        bitmap1 = stretchBitmap(bitmap, scale);
-                    } else {
-                        bitmap1 = clicpBitmap(bitmap, scale);
-                    }
-                } else if (imagehandle.equals(AppConfigConst.Value.IMAGE_CLICP)) {
-                    bitmap1 = clicpBitmap(bitmap, scale);
-                } else if (imagehandle.equals(AppConfigConst.Value.IMAGE_STRETCH)) {
-                    bitmap1 = stretchBitmap(bitmap, scale);
-                }
-                mWallManager.setBitmap(bitmap1);
-                setLockWallPaper(bitmap1,context);
+        int screenWidth = ScreenUtil.screen_width;
+        int screenHeight = ScreenUtil.screen_height;
+        float scale = screenHeight * 1f / screenWidth;
+        int bitmapWidth = bitmap.getWidth();
+        int bitmapHeight = bitmap.getHeight();
+        if (bitmapHeight * 1f / bitmapWidth == scale) {
+            setWallPaperBitmap(bitmap, context);
+        } else {
+            String imagehandle = Hawk.get(AppConfigConst.Key.IMAGE_HANDLE, AppConfigConst.Value.IMAGE_AUTO);
+            Bitmap bitmap1 = null;
+            if (imagehandle.equals(AppConfigConst.Value.IMAGE_AUTO)) {
+//                float imageScale = bitmapHeight * 1f / bitmapWidth;
+//                if (Math.abs(scale - imageScale) <= 0.24) {
+//                    bitmap1 = stretchBitmap(bitmap, scale);
+//                } else {
+//                    bitmap1 = clicpBitmap(bitmap, scale);
+//                }
+                bitmap1 = bitmap;
+            } else if (imagehandle.equals(AppConfigConst.Value.IMAGE_CLICP)) {
+                bitmap1 = clicpBitmap(bitmap, scale);
+            } else if (imagehandle.equals(AppConfigConst.Value.IMAGE_STRETCH)) {
+                bitmap1 = stretchBitmap(bitmap, scale);
             }
-            if (context instanceof Activity) {
-                ToastUtils.showShort("设置成功", context);
-            }
-            LogUtil.i("WallPaperUtils---设置壁纸成功");
-        } catch (IOException e) {
-            LogUtil.i("WallPaperUtils---设置壁纸失败" + e.getMessage());
+            setWallPaperBitmap(bitmap1, context);
+        }
+        if (context instanceof Activity) {
+            ToastUtils.showShort("设置成功", context);
         }
     }
 
@@ -111,6 +106,20 @@ public class WallPaperUtils {
             bitmap.recycle();
         }
         return newBM;
+    }
 
+    public static void setWallPaperBitmap(Bitmap bitmap, Context context) {
+        WallpaperManager mWallManager = WallpaperManager.getInstance(context);
+        try {
+            if (Build.VERSION.SDK_INT >= 24) {
+                mWallManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK | WallpaperManager.FLAG_SYSTEM);
+            } else {
+                mWallManager.setBitmap(bitmap);
+                setLockWallPaper(bitmap, context);
+            }
+            LogUtil.i("WallPaperUtils---设置壁纸成功");
+        } catch (IOException e) {
+            LogUtil.i("WallPaperUtils---设置壁纸失败" + e.getMessage());
+        }
     }
 }

@@ -28,6 +28,29 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
+        android:id="@+id/setting_unLock_tv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="0.5dp"
+        android:background="@drawable/bg_item_click"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="解锁屏幕切换壁纸"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+    <Switch
+        android:theme="@style/mySwitch"
+        android:id="@+id/setting_unlock_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+
+    <TextView
         android:id="@+id/setting_category_tv"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -40,7 +63,7 @@
         android:paddingRight="15dp"
         android:text="分类标签设置"
         android:textColor="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/setting_unLock_tv" />
 
     <TextView
         android:id="@+id/setting_count_tv"
@@ -51,6 +74,7 @@
         android:onClick="onClick"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:text="当前每个分类加载图片数量:"
         android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@+id/setting_category_tv" />
 
@@ -63,6 +87,7 @@
         android:onClick="onClick"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:text="当前壁纸设置方案:"
         android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@+id/setting_count_tv" />
 
@@ -80,6 +105,30 @@
         app:layout_constraintTop_toBottomOf="@+id/setting_bitmap_tv" />
 
     <TextView
+        android:id="@+id/setting_log_save_tv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_item_click"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="是否记录日志"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/setting_log_tv" />
+
+    <Switch
+        android:theme="@style/mySwitch"
+        android:id="@+id/setting_log_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_log_tv" />
+
+
+    <TextView
         android:id="@+id/setting_clear_tv"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -90,7 +139,7 @@
         android:paddingRight="15dp"
         android:text="清除缓存"
         android:textColor="#000000"
-        app:layout_constraintTop_toBottomOf="@+id/setting_log_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/setting_log_save_tv" />
 
     <TextView
         android:id="@+id/setting_cache_tv"

@@ -88,26 +88,44 @@ public class ADeskImageActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-        LogUtil.i("首页---获取个人最热图片预览");
-        ArrayList<ADeskCategoryResponse.ResBean.CategoryBean> categoryBeans = Hawk.get(AppConfigConst.Key.CATEGORY_LIST);
-        if (categoryBeans == null || categoryBeans.size() == 0) {
-            getAllHot();
-        } else {
-            List<ADeskCategoryResponse.ResBean.CategoryBean> categoryIds = new ArrayList<>();
-            String cName = "";
-            for (ADeskCategoryResponse.ResBean.CategoryBean bean : categoryBeans) {
-                if (bean.isCheck()) {
-                    categoryIds.add(bean);
-                    cName = cName + bean.getName() + "  ";
-                }
+
+        ImageInfoManager manager = ImageInfoManager.getInstance(this);
+        manager.getImageInfo(new ImageInfoManager.ImageInfoDataLoadListener() {
+            @Override
+            public void onSuceess(List<ADeskImageResponse.ResBean.VerticalBean> beans) {
+                mList.clear();
+                mList.addAll(beans);
+                adapter.notifyDataSetChanged();
+                refreshLayout.finishRefresh();
             }
-            LogUtil.e("首页---当前一设置偏好分类为：" + cName);
-            if (categoryIds.size() == 0) {
-                getAllHot();
-            } else {
-                getCategoryHot(categoryIds);
+
+            @Override
+            public void onFailed(String msg) {
+                ToastUtils.showShort(msg, ADeskImageActivity.this);
+                refreshLayout.finishRefresh();
             }
-        }
+        });
+
+//        LogUtil.i("首页---获取个人最热图片预览");
+//        ArrayList<ADeskCategoryResponse.ResBean.CategoryBean> categoryBeans = Hawk.get(AppConfigConst.Key.CATEGORY_LIST);
+//        if (categoryBeans == null || categoryBeans.size() == 0) {
+//            getAllHot();
+//        } else {
+//            List<ADeskCategoryResponse.ResBean.CategoryBean> categoryIds = new ArrayList<>();
+//            String cName = "";
+//            for (ADeskCategoryResponse.ResBean.CategoryBean bean : categoryBeans) {
+//                if (bean.isCheck()) {
+//                    categoryIds.add(bean);
+//                    cName = cName + bean.getName() + "  ";
+//                }
+//            }
+//            LogUtil.e("首页---当前一设置偏好分类为：" + cName);
+//            if (categoryIds.size() == 0) {
+//                getAllHot();
+//            } else {
+//                getCategoryHot(categoryIds);
+//            }
+//        }
     }
 
     private void getAllHot() {

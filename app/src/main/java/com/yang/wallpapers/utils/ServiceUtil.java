@@ -14,12 +14,21 @@ import com.yang.wallpapers.MyWallPaperService;
 public class ServiceUtil {
 
     public static void startService(Context context) {
-        if (MyWallPaperService.instance == null){
-            Intent i = new Intent(context, FakeService.class);
-            Intent intent = new Intent(context, MyWallPaperService.class);
-            context.startService(i);
-            context.startService(intent);
+        startService(context, null);
+    }
+
+    public static void startService(Context context, String action) {
+//        if (MyWallPaperService.instance == null) {
+//            Intent i = new Intent(context, FakeService.class);
+//            Intent intent = new Intent(context, MyWallPaperService.class);
+//            if (!StringUtil.isEmpty(action)) intent.setAction(action);
+//            context.startService(i);
+//            context.startService(intent);
             LogUtil.e("ServiceUtil-----startService");
-        }
+//        } else {
+            Intent intent = new Intent(context, MyWallPaperService.class);
+            if (!StringUtil.isEmpty(action)) intent.setAction(action);
+            context.startService(intent);
+//        }
     }
 }

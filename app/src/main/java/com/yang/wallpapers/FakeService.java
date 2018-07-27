@@ -1,11 +1,14 @@
 package com.yang.wallpapers;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+
+import com.yang.wallpapers.utils.LogUtil;
 
 /**
  * Created by
@@ -35,13 +38,7 @@ public class FakeService extends Service {
                 .setContentText("Check Service....")
                 .setWhen(System.currentTimeMillis());
         startForeground(101, builder.build());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                stopForeground(true);
-                FakeService.this.stopSelf();
-            }
-        }, 500);
+        stopSelf();
     }
 
     @Override
