@@ -23,7 +23,7 @@ public class WallPaperImageManager {
     private static List<ADeskImageResponse.ResBean.VerticalBean> downLoadList;
 
     public static Bitmap getNewImage(Context context) {
-        preLoadCount = Hawk.get(AppConfigConst.Key.WRITE_LOG, 3);
+        preLoadCount = Hawk.get(AppConfigConst.Key.PRELOAD_COUNT, 3);
 
         return prepareImages(context);
     }
