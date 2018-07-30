@@ -16,8 +16,10 @@ import com.yang.wallpapers.utils.StringUtil;
 import com.yang.wallpapers.utils.ToastUtils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -85,6 +87,7 @@ public class ImageInfoManager {
                     ADeskImageResponse response = JsonParser.json2Bean(str, ADeskImageResponse.class);
                     if (response.getRes() != null && response.getRes().getVertical() != null && response.getRes().getVertical().size() > 0) {
                         Hawk.put(AppConfigConst.Key.NEW_IMAGE_HOT_LIST, response.getRes().getVertical());
+                        Hawk.put(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis()));
                         listener.onSuceess(response.getRes().getVertical());
                     } else {
                         writeMsg("获取最热数据为空");
@@ -161,6 +164,7 @@ public class ImageInfoManager {
                 List<ADeskImageResponse.ResBean.VerticalBean> list1 = new ArrayList<>();
                 list1.addAll(tempList);
                 Hawk.put(AppConfigConst.Key.NEW_IMAGE_HOT_LIST, list1);
+                Hawk.put(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis()));
                 listener.onSuceess(list1);
             }
         }

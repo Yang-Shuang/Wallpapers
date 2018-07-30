@@ -33,7 +33,7 @@ public class FakeService extends Service {
 
     private void fake() {
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setSmallIcon(R.mipmap.icon_launcher)
+        builder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Wall")
                 .setContentText("Check Service....")
                 .setWhen(System.currentTimeMillis());

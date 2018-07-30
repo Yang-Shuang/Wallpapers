@@ -31,6 +31,7 @@ public class AppConfigConst {
         public static final String PRELOAD_COUNT = "PRELOADCOUNT";
         public static final String CURRENT_IMAGE_INDEX = "CURRENT_IMAGE_INDEX";
         public static final String NEW_IMAGE_HOT_LIST = "NEW_IMAGE_HOT_LIST";
+        public static final String HOT_LIST_UPDATE_TIME = "HOT_LIST_UPDATE_TIME";
         public static final String PRELOAD_IMAGE_LIST = "PRELOAD_IMAGE_LIST";
     }
 

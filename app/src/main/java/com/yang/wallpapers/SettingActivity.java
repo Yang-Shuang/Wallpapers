@@ -29,6 +29,11 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        initView();
+    }
+
+    private void initView() {
+
         cacheTv = findViewById(R.id.setting_cache_tv);
         countTv = findViewById(R.id.setting_count_tv);
         bitmaphandleTv = findViewById(R.id.setting_bitmap_tv);
@@ -37,9 +42,6 @@ public class SettingActivity extends AppCompatActivity {
 
         countTv.setText(countHint + Hawk.get(AppConfigConst.Key.CATEGORY_IMAGE_COUNT, "20"));
         bitmaphandleTv.setText(bitmapHint + Hawk.get(AppConfigConst.Key.IMAGE_HANDLE, AppConfigConst.Value.IMAGE_AUTO));
-        cacheTv.setText(cacheHint + (Fresco.getImagePipelineFactory().getMainFileCache().getSize() / 1000) + " KB");
-
-
 
         logSwitch.setChecked(Hawk.get(AppConfigConst.Key.WRITE_LOG, false));
         unLockChangeSwitch.setChecked(Hawk.get(AppConfigConst.Key.UNLOCK_CHANGE_WALL, false));
@@ -57,6 +59,18 @@ public class SettingActivity extends AppCompatActivity {
                 LogUtil.setWriteLog(isChecked);
             }
         });
+
+
+        long cacheSize = Fresco.getImagePipelineFactory().getMainFileCache().getSize();
+        String cacheStuff = "B";
+        if (cacheSize >= 1048576) {
+            cacheSize = cacheSize / 1048576;
+            cacheStuff = "MB";
+        } else if (cacheSize >= 1024) {
+            cacheSize = cacheSize / 1024;
+            cacheStuff = "KB";
+        }
+        cacheTv.setText(cacheHint + cacheSize + cacheStuff);
     }
 
     public void onClick(View view) {

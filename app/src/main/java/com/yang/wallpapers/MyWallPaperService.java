@@ -8,11 +8,15 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.orhanobut.hawk.Hawk;
 import com.yang.wallpapers.entity.ADeskImageResponse;
+import com.yang.wallpapers.utils.AppConfigConst;
 import com.yang.wallpapers.utils.LogUtil;
 import com.yang.wallpapers.utils.StringUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -45,7 +49,7 @@ public class MyWallPaperService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
         if (StringUtil.isEmpty(action)) {
-//            executeTask();
+            executeTask();
         } else if (action.equals(ACTION_GET_DATA_FOR_SET)) {
             LogUtil.e("onStartCommand------ACTION_GET_DATA_FOR_SET");
             getImageData();
@@ -55,12 +59,17 @@ public class MyWallPaperService extends Service {
     }
 
     private void executeTask() {
-        if (manager == null) {
-            manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (!Hawk.get(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, "").equals(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis()))) {
+            LogUtil.e("MyWallPaperService------更新每日最热数据");
+            getImageData();
         }
-        Intent i = new Intent(this, WallPaperReceiver.class);
-        i.setAction(WallPaperReceiver.ACTION_CHANGE_WALL);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+//        if (manager == null) {
+//            manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        }
+//        Intent i = new Intent(this, WallPaperReceiver.class);
+//        i.setAction(WallPaperReceiver.ACTION_CHANGE_WALL);
+//        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
 //        manager.set(AlarmManager.RTC, System.currentTimeMillis() + 1000 * 60 * 10, pi);
     }
 

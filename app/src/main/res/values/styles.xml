@@ -10,7 +10,7 @@
     </style>
 
     <style name="lancher_theme" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/wall_lancher</item>
+        <item name="android:windowBackground">@mipmap/bg_launcher_small</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 

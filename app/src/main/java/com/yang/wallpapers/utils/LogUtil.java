@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class LogUtil {
 
-    private static SimpleDateFormat format;
+    public static SimpleDateFormat format;
     private static String LOG_FILE_PATH;
     private static boolean writeLog = false;
     public static final String divideStr = "_:_";
