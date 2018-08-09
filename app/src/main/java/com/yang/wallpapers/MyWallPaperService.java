@@ -1,9 +1,7 @@
 package com.yang.wallpapers;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -52,17 +50,21 @@ public class MyWallPaperService extends Service {
             executeTask();
         } else if (action.equals(ACTION_GET_DATA_FOR_SET)) {
             LogUtil.e("onStartCommand------ACTION_GET_DATA_FOR_SET");
-            getImageData();
+            getImageData(true);
+        } else {
+            executeTask();
         }
 
         return START_REDELIVER_INTENT;
     }
 
     private void executeTask() {
-
-        if (!Hawk.get(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, "").equals(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis()))) {
-            LogUtil.e("MyWallPaperService------更新每日最热数据");
-            getImageData();
+        String updateTime = Hawk.get(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, "no");
+        if (!updateTime.equals(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis()))) {
+            LogUtil.e("Service更新数据--" + updateTime);
+            getImageData(false);
+        } else {
+            LogUtil.e("今日已更新数据" + updateTime);
         }
 //        if (manager == null) {
 //            manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -73,19 +75,27 @@ public class MyWallPaperService extends Service {
 //        manager.set(AlarmManager.RTC, System.currentTimeMillis() + 1000 * 60 * 10, pi);
     }
 
-    private void getImageData() {
+    private boolean onLoading = false;
+
+    private void getImageData(final boolean setWallPaper) {
+        if (onLoading == true) return;
+        onLoading = true;
         ImageInfoManager manager = ImageInfoManager.getInstance(this);
         manager.getImageInfo(new ImageInfoManager.ImageInfoDataLoadListener() {
             @Override
             public void onSuceess(List<ADeskImageResponse.ResBean.VerticalBean> beans) {
-                Intent intent = new Intent(MyWallPaperService.this, WallPaperReceiver.class);
-                intent.setAction(WallPaperReceiver.ACTION_CHANGE_WALL);
-                sendBroadcast(intent);
+                onLoading = false;
+                if (setWallPaper) {
+                    Intent intent = new Intent(MyWallPaperService.this, WallPaperReceiver.class);
+                    intent.setAction(WallPaperReceiver.ACTION_CHANGE_WALL);
+                    sendBroadcast(intent);
+                }
 //                executeTask();
             }
 
             @Override
             public void onFailed(String msg) {
+                onLoading = false;
             }
         });
     }

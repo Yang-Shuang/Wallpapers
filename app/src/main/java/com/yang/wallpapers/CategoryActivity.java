@@ -106,7 +106,7 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
             case R.id.category_save_tv:
                 Hawk.put(AppConfigConst.Key.CATEGORY_LIST, mList);
-                Hawk.put(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, "");
+                Hawk.put(AppConfigConst.Key.HOT_LIST_UPDATE_TIME, "no");
                 finish();
                 break;
         }
